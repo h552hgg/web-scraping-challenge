@@ -23,17 +23,16 @@
         <h4 class="heading">{{results.news_title}}<h4>
         <small>{{results.news_p}}</small>
     </div>
-    <!-- Facts Table -->
+    <!-- Featured Image -->
     <div class="row">
       <div class="col-md-6" href="/mars">
         <h3>Featured Mars Image</h3>
         <a>
           
           <img src="{{results.image}}" alt="Featured Mars Image">
-        </a>
-          
+        </a> 
       </div>
- <!-- Featured Image -->
+    <!-- Facts Table -->
       <div class="col-md-6">
         <h4> Mars Facts</h4>
         <div class="container">
@@ -41,17 +40,21 @@
             {{results.table|safe}}
           </table>
         </div>
+      </div>
     </div>  
     <!-- Mars Hemispheres -->
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Mars Hemispheres</h3>
-          <a href="{{results.image}}">
-            <img src="{{results.image}}" alt="Featured Mars Image" width="550px" height="360px">
-          </a>
+  {% for url_info in hemisphere_image_url %}
+    <div class="col-md-3">
+      <div class="tumbnail">
+        <img src="{{url_info.link_url | default('static/images/error.png',true)}}" alt="">
+        <div>
+          <h3>{{url_info.title}}</h3>
+        </div>
       </div>
-    </div> 
-  </div>
+    </div>
+  {% endfor %}    
+    
+</div>
 </body>
 
 </html>

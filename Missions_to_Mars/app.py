@@ -36,12 +36,7 @@ def scrape():
     # Redirect back to home page
     return redirect("/", code=302)
     
-#@app.route("/mars")
-#def mars():
 
-    #mars_image= News_scrape.mars_info()
-
-    #mongo.db.collection.update({}, mars_image, upsert=True)
 
     
 

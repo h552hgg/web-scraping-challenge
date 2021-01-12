@@ -17,6 +17,7 @@ def scrape_info():
     soup = BeautifulSoup(html, "html.parser")
     res = soup.find('div', class_='slide')
 
+    
     #results ={}
     # Identify and return title of listing
     #results["news_title"] = soup.find('div', class_='content_title').text
@@ -25,8 +26,9 @@ def scrape_info():
     # Identify and return price of listing
     #results["news_p"] = soup.a.text
     news_p = res.a.text.strip()
+   
 
-#def mars_info():
+
     #####################################
     browser = init_browser()
     urln = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
@@ -49,38 +51,40 @@ def scrape_info():
     mars_df.columns=['','Mars']
     #results["table"]=mars_df.to_html()
     table=mars_df.to_html()
+    #####################################
 
     ######################################
-    #hem_url='https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
-    #browser.visit(hem_url)    
-    #title_list=[]
-    #image_url=[]
-    #hemisphere_image_url={}
-    #images = soup.find_all('div', class_='item')
+    hem_url='https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.visit(hem_url) 
 
 
-    #for image in images:
-        #title=image.find('h3').text
-        #title_list.append(title)
-        #link_url = image.find('img')['src']
-        #image_url.append(link_url)
+    images = browser.find_by_css("a.product-item h3")
+    hemisphere_image_url=[]
+
+
+
+    for i in range(len(images)):
+        url_info={}
+        browser.find_by_css("a.product-item h3")[i].click()
+        cat_info=browser.links.find_by_text('Sample').first
+        url_info['title']=browser.find_by_css('h2.title').text
+        url_info['link_url'] = cat_info['href']
+        hemisphere_image_url.append(url_info)
+        browser.back()
     
-    #results["image_url"]=hemisphere_image_url["img_url"]=['https://astrogeology.usgs.gov' + image for image in image_url ]
-    #results["image_title"]=hemisphere_image_url["title"]=[title for title in title_list]
 
-    #image_url=hemisphere_image_url["img_url"]=['https://astrogeology.usgs.gov' + image for image in image_url ]
-    #image_title=hemisphere_image_url["title"]=[title for title in title_list]
+
     
     results={
         "news_title":news_title,
         "news_p":news_p,
         "image":image,
-        "table":table
-        #"image_url":image_url,
-        #"image_title":image_title
+        "table":table,
+        
+       
 
 
     }
 
 
-    return results
+    return results, hemisphere_image_url
