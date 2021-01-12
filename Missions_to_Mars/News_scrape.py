@@ -87,4 +87,4 @@ def scrape_info():
     }
 
 
-    return results, hemisphere_image_url
+    return results

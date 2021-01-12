@@ -43,16 +43,9 @@
       </div>
     </div>  
     <!-- Mars Hemispheres -->
-  {% for url_info in hemisphere_image_url %}
-    <div class="col-md-3">
-      <div class="tumbnail">
-        <img src="{{url_info.link_url | default('static/images/error.png',true)}}" alt="">
-        <div>
-          <h3>{{url_info.title}}</h3>
-        </div>
-      </div>
+  
     </div>
-  {% endfor %}    
+  
     
 </div>
 </body>
